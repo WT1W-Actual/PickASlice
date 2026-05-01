@@ -35,6 +35,8 @@
             btnQidi = new Button();
             btnSettings = new Button();
             btnBambu = new Button();
+            btnLocateSlicer = new Button();
+            flowLayoutPanelSlicers = new FlowLayoutPanel();
             SuspendLayout();
             // 
             // btnOrca
@@ -89,7 +91,7 @@
             // 
             // btnSettings
             // 
-            btnSettings.Location = new Point(79, 219);
+            btnSettings.Location = new Point(79, 245);
             btnSettings.Name = "btnSettings";
             btnSettings.Size = new Size(75, 23);
             btnSettings.TabIndex = 5;
@@ -107,11 +109,30 @@
             btnBambu.UseVisualStyleBackColor = true;
             btnBambu.Click += btnBambuClick;
             // 
+            // btnLocateSlicer
+            // 
+            btnLocateSlicer.Location = new Point(62, 305);
+            btnLocateSlicer.Name = "btnLocateSlicer";
+            btnLocateSlicer.Size = new Size(150, 23);
+            btnLocateSlicer.TabIndex = 6;
+            btnLocateSlicer.Text = "Auto-Detect Slicers";
+            btnLocateSlicer.UseVisualStyleBackColor = true;
+            btnLocateSlicer.Click += btnAutoDetectSlicers_Click;
+            // 
+            // flowLayoutPanelSlicers
+            // 
+            flowLayoutPanelSlicers.Location = new Point(218, 2);
+            flowLayoutPanelSlicers.Name = "flowLayoutPanelSlicers";
+            flowLayoutPanelSlicers.Size = new Size(345, 377);
+            flowLayoutPanelSlicers.TabIndex = 7;
+            // 
             // Settings
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(250, 290);
+            ClientSize = new Size(562, 381);
+            Controls.Add(flowLayoutPanelSlicers);
+            Controls.Add(btnLocateSlicer);
             Controls.Add(btnBambu);
             Controls.Add(btnSettings);
             Controls.Add(btnQidi);
@@ -133,5 +154,7 @@
         private Button btnQidi;
         private Button btnSettings;
         private Button btnBambu;
+        private Button btnLocateSlicer;
+        private FlowLayoutPanel flowLayoutPanelSlicers;
     }
 }
