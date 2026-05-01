@@ -37,6 +37,7 @@
             btnBambu = new Button();
             btnLocateSlicer = new Button();
             flowLayoutPanelSlicers = new FlowLayoutPanel();
+            lblVersion = new Label();
             SuspendLayout();
             // 
             // btnOrca
@@ -126,11 +127,22 @@
             flowLayoutPanelSlicers.Size = new Size(345, 377);
             flowLayoutPanelSlicers.TabIndex = 7;
             // 
+            // lblVersion
+            // 
+            lblVersion.AutoSize = true;
+            lblVersion.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblVersion.Location = new Point(12, 9);
+            lblVersion.Name = "lblVersion";
+            lblVersion.Size = new Size(34, 15);
+            lblVersion.TabIndex = 8;
+            lblVersion.Text = "v1.0";
+            // 
             // Settings
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(562, 381);
+            Controls.Add(lblVersion);
             Controls.Add(flowLayoutPanelSlicers);
             Controls.Add(btnLocateSlicer);
             Controls.Add(btnBambu);
@@ -156,5 +168,6 @@
         private Button btnBambu;
         private Button btnLocateSlicer;
         private FlowLayoutPanel flowLayoutPanelSlicers;
+        private Label lblVersion;
     }
 }
