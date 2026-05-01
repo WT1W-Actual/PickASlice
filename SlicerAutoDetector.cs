@@ -73,12 +73,36 @@ namespace PickASlice
                     string[] matchingDirs = Directory.GetDirectories(basePath, "Creality Print*");
                     foreach (string dir in matchingDirs)
                     {
-                        string exePath = Path.Combine(dir, "CrealityPrint.exe");
-                        if (File.Exists(exePath))
+                        // Creality names executables with version suffixes in some releases.
+                        string[] executablePatterns =
                         {
-                            detectedPaths["CrealityPath"] = exePath;
-                            Debug.WriteLine($"[SlicerAutoDetector] Detected CrealityPath: {exePath}");
-                            goto CrealityFound; // Exit all loops once found
+                            "CrealityPrint.exe",
+                            "CrealityPrint*.exe",
+                            "Creality*Print*.exe"
+                        };
+
+                        foreach (string executablePattern in executablePatterns)
+                        {
+                            string[] exeMatches = Directory.GetFiles(dir, executablePattern, SearchOption.TopDirectoryOnly);
+                            if (exeMatches.Length > 0)
+                            {
+                                // Prefer the most recently updated executable if multiple matches exist.
+                                string selectedExe = exeMatches[0];
+                                DateTime newestWriteTime = File.GetLastWriteTimeUtc(selectedExe);
+                                for (int i = 1; i < exeMatches.Length; i++)
+                                {
+                                    DateTime candidateWriteTime = File.GetLastWriteTimeUtc(exeMatches[i]);
+                                    if (candidateWriteTime > newestWriteTime)
+                                    {
+                                        selectedExe = exeMatches[i];
+                                        newestWriteTime = candidateWriteTime;
+                                    }
+                                }
+
+                                detectedPaths["CrealityPath"] = selectedExe;
+                                Debug.WriteLine($"[SlicerAutoDetector] Detected CrealityPath: {selectedExe}");
+                                goto CrealityFound; // Exit all loops once found
+                            }
                         }
                     }
                 }
