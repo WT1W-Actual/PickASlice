@@ -17,6 +17,11 @@ namespace PickASlice
         public Settings()
         {
             InitializeComponent();
+            string appVersion = GetAppVersionText();
+            this.Text = $"Pick A Slice v{appVersion}";
+            this.lblVersion.Text = $"Version: {appVersion}";
+            this.lblVersion.BringToFront();
+
             // Hide the pre-defined static slicer buttons if you intend to only use auto-detected ones dynamically.
             this.btnOrca.Visible = false;
             this.btnCreality.Visible = false;
@@ -28,6 +33,23 @@ namespace PickASlice
 
             // *** IMPORTANT: Call auto-detection on form load to populate buttons immediately ***
             btnAutoDetectSlicers_Click(this, EventArgs.Empty); 
+        }
+
+        private static string GetAppVersionText()
+        {
+            var informational = Assembly
+                .GetExecutingAssembly()
+                .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
+                ?.InformationalVersion;
+
+            if (!string.IsNullOrWhiteSpace(informational))
+            {
+                int plusIndex = informational.IndexOf('+');
+                return plusIndex > 0 ? informational.Substring(0, plusIndex) : informational;
+            }
+
+            Version? version = Assembly.GetExecutingAssembly().GetName().Version;
+            return version is null ? "1.0.0" : $"{version.Major}.{version.Minor}.{version.Build}";
         }
 
         // Helper method to reduce code duplication for launching slicers
